@@ -91,17 +91,6 @@ def make_preprocessor(
     return preprocess
 
 
-# def preprocessor_from_name(preprocessor_name):
-#     """
-#     Reconstruct a preprocessor callable from its name.
-#     """
-
-#     if preprocessor_name in (None, "None", "", "nan"):
-#         return None
-
-#     return make_preprocessor(str(preprocessor_name).lower())
-
-
 def get_ngram_range(vectorizer_name: str):
     """
     Infer ngram range from the vectorizer name.
@@ -199,13 +188,6 @@ def main():
         previous_winners_df=previous_winners,
         challenge_factory=create_stemming_challenges,
     )
-
-    # duel_columns = [
-    #     "Train size",
-    #     "Base Vectorizer",
-    #     "StopWords",
-    #     "Classifier",
-    # ]
 
     if comparison_winners_df.empty:
         print("Warning: no official winners were selected.")
