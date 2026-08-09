@@ -207,7 +207,7 @@ def main():
     ]
 
     results_df[csv_columns].to_csv(
-        "baseline_results.csv", index=False,
+        "results_baseline.csv", index=False,
     )
 
 
