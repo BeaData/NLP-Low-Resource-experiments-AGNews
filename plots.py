@@ -26,12 +26,6 @@ def plot_confusion_matrices(results):
         The following column is optional:
         - Experiment
     """
-    labels = {
-        1: "World",
-        2: "Sports",
-        3: "Business",
-        4: "Sci/Tech",
-    }
 
     for dataset_size in sorted(
         results["Train size"].unique()
@@ -70,9 +64,6 @@ def plot_confusion_matrices(results):
                 row["y_pred"],
                 ax=ax,
                 colorbar=False,
-                display_labels=list(
-                    labels.values()
-                ),
             )
 
             title = (
@@ -485,7 +476,7 @@ def plot_embedding_performance(results):
         )
 
     ax.set_title(
-        "Sentence Embeddings Performance Evolution",
+        "Embeddings Performance Evolution",
         fontsize=16,
         fontweight="bold",
     )
