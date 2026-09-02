@@ -341,13 +341,17 @@ AGNews/
 ├── utils.py
 ├── plots.py
 │
-├── AG_V1_baseline.py
-├── AG_V2_ngram.py
+├── AG_baseline.py
+├── AG_V1_StopWords.py
+├── AG_V2_ngrams.py
 ├── AG_V3_stemming.py
 ├── AG_V4_lemmatization.py
 ├── AG_V5_GridSearch.py
 │
 ├── embedding_framework.py
+│
+├── embedding_word_framework.py
+├── embedding_w_tfidf_fwk
 │
 ├── results/
 │
