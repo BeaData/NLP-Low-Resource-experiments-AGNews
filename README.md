@@ -1,4 +1,4 @@
-# AG News Text Classification: Classical NLP vs Sentence Embeddings
+# AG News Text Classification: From Classical NLP to Word and Sentence Embeddings
 
 ## 1. Project Overview
 
@@ -15,7 +15,7 @@ The objective is not only to maximize accuracy, but to analyze the trade-offs be
 * training data requirements,
 * computational cost.
 
-The project compares classical NLP pipelines based on sparse lexical representations with modern sentence embedding approaches.
+The project progressively compares classical NLP pipelines based on sparse lexical representations with sentence-level and word-level embedding approaches.
 
 ---
 
@@ -34,7 +34,7 @@ The dataset contains four categories:
 
 Each document is represented as:
 
-```
+```text
 Title + Description
 ```
 
@@ -44,7 +44,7 @@ A fixed independent test set is used for evaluation.
 
 Training subsets are nested:
 
-```
+```text
 50
 200
 500
@@ -84,7 +84,7 @@ The experiments also record:
 
 The project is organized into progressive experimental stages.
 
-```
+```text
 V1
  |
  |-- Baseline lexical representations
@@ -108,6 +108,10 @@ V5
 V6
  |
  |-- Sentence embeddings
+ |
+V7
+ |
+ |-- Word embeddings + pooling
 ```
 
 ---
@@ -195,23 +199,21 @@ Models optimized:
 
 Objective:
 
-Evaluate whether dense semantic representations outperform classical sparse representations.
+Evaluate whether dense sentence-level semantic representations outperform classical sparse representations.
 
 Embedding model:
 
-```
+```text
 all-MiniLM-L6-v2
 ```
 
-Experiments:
-
 ---
 
-## V6.1 Raw embeddings + LinearSVC
+## V6.1 - Raw Embeddings + LinearSVC
 
 Pipeline:
 
-```
+```text
 Text
  |
 Sentence Transformer
@@ -223,11 +225,11 @@ LinearSVC
 
 ---
 
-## V6.2 L2 normalized embeddings + LinearSVC
+## V6.2 - L2-Normalized Embeddings + LinearSVC
 
 Pipeline:
 
-```
+```text
 Text
  |
 Sentence Transformer
@@ -243,11 +245,11 @@ Measure whether embedding normalization improves classification.
 
 ---
 
-## V6.3 Raw embeddings + Nearest Centroid
+## V6.3 - Raw Embeddings + Nearest Centroid
 
 Pipeline:
 
-```
+```text
 Text
  |
 Sentence Transformer
@@ -265,11 +267,73 @@ Evaluate whether a simple classifier can exploit semantic embeddings efficiently
 
 ---
 
-# 7. Project Structure
+# 7. Word Embedding Experiments
+
+## V7 - Word-Level Semantic Representations
+
+Objective:
+
+Evaluate whether word-level embeddings combined with pooling strategies can provide competitive document representations under low-resource conditions.
+
+Embedding model:
+
+```text
+GloVe 100d
+```
+
+The word embeddings are aggregated at document level using different pooling strategies.
+
+---
+
+## V7.1 - Mean Pooling
+
+Pipeline:
+
+```text
+Text
+ |
+Tokenization
+ |
+GloVe word embeddings
+ |
+Mean pooling
+ |
+LinearSVC
+```
+
+Objective:
+
+Establish a simple word-level embedding baseline using the mean of the available word vectors.
+
+---
+
+## V7.2 - TF-IDF Weighted Mean Pooling
+
+Pipeline:
+
+```text
+Text
+ |
+Tokenization
+ |
+GloVe word embeddings
+ |
+TF-IDF weighted pooling
+ |
+LinearSVC
+```
+
+Objective:
+
+Evaluate whether weighting word embeddings according to their TF-IDF importance improves document representation compared with simple mean pooling.
+
+---
+
+# 8. Project Structure
 
 Example:
 
-```
+```text
 AGNews/
 
 ├── data/
@@ -294,24 +358,26 @@ AGNews/
 │   ├── results_V5.csv
 │   ├── results_V6_1_embeddings.csv
 │   ├── results_V6_2_embeddings.csv
-│   └── results_V6_3_embeddings.csv
+│   ├── results_V6_3_embeddings.csv
+│   ├── results_V7_1_embeddings.csv
+│   └── results_V7_2_embeddings.csv
 │
 └── README.md
 ```
 
 ---
 
-# 8. Environment
+# 9. Environment
 
 Recommended Python environment:
 
-```
+```text
 Python >= 3.12
 ```
 
 Main dependencies:
 
-```
+```text
 numpy
 pandas
 scikit-learn
@@ -328,7 +394,7 @@ uv sync
 
 ---
 
-# 9. Running Experiments
+# 10. Running Experiments
 
 Example:
 
@@ -346,29 +412,20 @@ Results are automatically saved as CSV files.
 
 ---
 
-# 10. Main Questions Investigated
+# 11. Main Questions Investigated
 
 The project investigates:
 
 1. How much performance is gained by improving lexical representations?
 2. Do classical preprocessing techniques still matter?
 3. Does hyperparameter optimization significantly improve classical models?
-4. At what training size do semantic embeddings become advantageous?
-5. Can very simple classifiers compete when using strong representations?
+4. At what training size do sentence-level semantic embeddings become advantageous?
+5. Can simple classifiers compete when using strong representations?
+6. Can word-level embeddings with simple pooling strategies compete with sentence-level embeddings?
+7. How do representation quality and computational cost evolve across the different approaches?
 
 ---
 
-# 11. Expected Analysis
-
-The final comparison will consider:
-
-* Macro F1 ranking,
-* Accuracy,
-* training efficiency,
-* inference cost,
-* behavior under low-resource conditions.
-
----
 ## Acknowledgements
 
-This project benefited from discussions and technical assistance provided by ChatGPT (OpenAI) and Deep Seek 3.2 Reasoner for code organization and documentation structure.
+This project benefited from discussions and technical assistance provided by ChatGPT (OpenAI) and DeepSeek V3.2 Reasoner for code organization and documentation structure.
