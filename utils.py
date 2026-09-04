@@ -149,7 +149,6 @@ def prepare(
         "Text" in df.columns
         and "Class Index" in df.columns
     ):
-
         text = (df["Text"].fillna("").astype(str))
         labels = df["Class Index"]
 
@@ -158,17 +157,11 @@ def prepare(
         and "Description" in df.columns
         and "Class Index" in df.columns
     ):
-
         text = (
-            df["Title"]
-            .fillna("")
-            .astype(str)
+            df["Title"].fillna("").astype(str)
             + " "
-            + df["Description"]
-            .fillna("")
-            .astype(str)
+            + df["Description"].fillna("").astype(str)
         )
-
         labels = df["Class Index"]
 
     elif (
@@ -176,21 +169,14 @@ def prepare(
         and "content" in df.columns
         and "label" in df.columns
     ):
-
         text = (
-            df["title"]
-            .fillna("")
-            .astype(str)
+            df["title"].fillna("").astype(str)
             + " "
-            + df["content"]
-            .fillna("")
-            .astype(str)
+            + df["content"].fillna("").astype(str)
         )
-
         labels = df["label"]
 
     else:
-
         raise ValueError(
             "Dataset format not recognized. "
             "Expected one of the following formats: "
@@ -201,15 +187,9 @@ def prepare(
         )
 
     if not isinstance(text, pd.Series):
-
-        raise TypeError(
-            "Text must be a pandas Series."
-        )
+        raise TypeError("Text must be a pandas Series")
 
     if not isinstance(labels, pd.Series):
-
-        raise TypeError(
-            "Labels must be a pandas Series."
-        )
+        raise TypeError("Labels must be a pandas Series")
 
     return text, labels
