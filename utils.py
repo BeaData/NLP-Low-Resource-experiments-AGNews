@@ -96,9 +96,7 @@ def load_winners(csv_path: str) -> pd.DataFrame:
     winners = load(csv_path)
 
     if winners is None:
-        raise FileNotFoundError(
-            f"Unable to load '{csv_path}'."
-        )
+        raise FileNotFoundError(f"Unable to load '{csv_path}'")
 
     print()
     print("=" * 80)
@@ -119,9 +117,7 @@ def load_winners(csv_path: str) -> pd.DataFrame:
         if column in winners.columns
     ]
 
-    print(
-        winners[display_columns]
-    )
+    print(winners[display_columns])
 
     return winners
 
@@ -154,12 +150,7 @@ def prepare(
         and "Class Index" in df.columns
     ):
 
-        text = (
-            df["Text"]
-            .fillna("")
-            .astype(str)
-        )
-
+        text = (df["Text"].fillna("").astype(str))
         labels = df["Class Index"]
 
     elif (
