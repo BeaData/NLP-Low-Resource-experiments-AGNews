@@ -892,57 +892,48 @@ def summarize_v5_results(comparison_df: pd.DataFrame) -> pd.DataFrame:
         .groupby("Train size")
         .agg(
             Runs=(
-                "Delta Macro F1",
-                "count",
+                "Delta Macro F1", "count",
             ),
             Mean_Delta_Macro_F1=(
-                "Delta Macro F1",
-                "mean",
+                "Delta Macro F1", "mean",
             ),
             Median_Delta_Macro_F1=(
-                "Delta Macro F1",
-                "median",
+                "Delta Macro F1", "median",
             ),
             GridSearchCV_Better_Macro_F1=(
                 "Comparison result",
                 lambda values: (
-                    values
-                    == "GridSearchCV better Macro F1"
+                    values == "GridSearchCV better Macro F1"
                 ).sum(),
             ),
             Default_Better_Macro_F1=(
                 "Comparison result",
                 lambda values: (
-                    values
-                    == "Default better Macro F1"
+                    values == "Default better Macro F1"
                 ).sum(),
             ),
             Identical_Macro_F1=(
                 "Comparison result",
                 lambda values: (
-                    values
-                    == "Identical Macro F1"
+                    values == "Identical Macro F1"
                 ).sum(),
             ),
             GridSearchCV_Official_Wins=(
                 "Official winner",
                 lambda values: (
-                    values
-                    == "GridSearchCV"
+                    values == "GridSearchCV"
                 ).sum(),
             ),
             Default_Official_Wins=(
                 "Official winner",
                 lambda values: (
-                    values
-                    == "Default"
+                    values == "Default"
                 ).sum(),
             ),
             Complete_Ties=(
                 "Official winner",
                 lambda values: (
-                    values
-                    == "Tie"
+                    values == "Tie"
                 ).sum(),
             ),
         )
@@ -1116,11 +1107,9 @@ def main():
     # ------------------------------------------------------------------
 
     comparison_df = calculate_deltas(results_df)
-
     print_v5_comparison(comparison_df)
 
     summary_df = summarize_v5_results(comparison_df)
-
     print_v5_summary(summary_df)
 
     # ------------------------------------------------------------------
